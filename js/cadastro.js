@@ -1,52 +1,65 @@
-const urlApi = "https://api-umfg-programacao-iv-2024-291d5e9a4gc4.herokuapp.com/swagger/index.html";
+const urlApi = "https://api-umfg-programacao-iv-2024-291d5e9a4ec4.herokuapp.com/";
 
-function cadastrarUsuario() {
-    alert("Iniciar Cadastro")
-    
-    const nomeUsuario = document.getElementById('nome').value;
-    const emailUsuario = document.getElementById('email').value;
-    const senhaUsuario = document.getElementById('senha').value;
-    const confirmarSenha = document.getElementById('confirmarSenha').value;
-    
-    const usuario = {
-        nome: nomeUsuario,
-        email: emailUsuario,
-        senha: senhaUsuario,
-        confirmarSenha: confirmarSenha
+async function cadastrarUsuario(event) {
+  event.preventDefault();
+  console.log("Iniciar Cadastro");
+
+  const emailUsuario = document.getElementById('email').value.trim();
+  const senhaUsuario = document.getElementById('senha').value;
+  const confirmarSenha = document.getElementById('confirmarSenha').value;
+
+  if (emailUsuario.trim() === ""){
+    alert("O campo email está vazio");
+    return;
+  }
+
+  if (senhaUsuario.trim() === ""){
+    alert("O campo senha está vazio");
+    return;
+  }
+
+  if (confirmarSenha.trim() === ""){
+    alert("O campo confirmar senha está vazio");
+    return;
+  }
+
+  if (senhaUsuario !== confirmarSenha) {
+    alert("As senhas são diferentes");
+    return;
+  }
+
+  const usuario = {
+    email: emailUsuario,
+    password: senhaUsuario,
+    confirmedPassword: confirmarSenha
+  };
+
+  try {
+    const response = await fetch(urlApi + 'v1/signup', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(usuario)
+    });
+
+    if (!response.ok) {
+      throw new Error('Erro ao cadastrar usuário');
     }
 
-    if (senhaUsuario === confirmarSenha){
-        fetch(urlApi, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(usuario)
-        })
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Erro ao cadastrar usuário');
-                }
-                return response.json();
-            })
-            .then(data => {
-                console.log('Usuário cadastrado:', data);
-                window.location.href = 'home.html';
-                history.pushState(null, null, 'home.html'); //ACESSAR TELA HOME
-            })
-            .catch(error => {
-                console.error('Erro:', error);
-            });
-    } else {
-        alert("As senhas são diferentes")
-    }
+    const data = await response.json();
+    console.log('Usuário cadastrado:', data);
+    history.pushState(null, null, 'home.html');
+  } catch (error) {
+    console.error(error)
+  }
+
+  window.location.href = 'home.html'; //DIRECIONA PARA TELA DE INICIO
 }
 
-const api = "https://api-umfg-programacao-iv-2024-291d5e9a4gc4.herokuapp.com/swagger/index.html";
-
 document.addEventListener('DOMContentLoaded', () => {
-    const regiterButton = document.querySelector('#register');
-    if (regiterButton) {
-        regiterButton.addEventListener('click', cadastrarUsuario)
-    }
-})
+  const registerButton = document.querySelector('#register');
+  if (registerButton) {
+    registerButton.addEventListener('click', cadastrarUsuario);
+  }
+});
