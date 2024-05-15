@@ -1,16 +1,24 @@
-const api = "https://api-umfg-programacao-iv-2024-291d5e9a4gc4.herokuapp.com/swagger/index.html";
+const api = "https://api-umfg-programacao-iv-2024-291d5e9a4ec4.herokuapp.com/";
 
 function executarLogin() {
     alert("Iniciar Login")
     const emailUsuario = document.getElementById("emailLogin").value;
     const senhaUsuario = document.getElementById("senhaLogin").value;
 
+    if(emailUsuario.trim() === ""){
+        alert("Email invalido")
+    }
+
+    if(senhaUsuario.trim() === ""){
+        alert("Email invalida")
+    }
+
     const usuario = {
         emailLogin: emailUsuario,
         senhaLogin: senhaUsuario
     }
 
-    fetch(`${api}/login`, {
+    fetch(`${api}/v1/signin`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -26,7 +34,7 @@ function executarLogin() {
         .then(data => {
             console.log('Login bem-sucedido', data)
             window.location.href = 'home.html';
-            history.pushState(null, null, 'home.html'); //ACESSAR TELA HOME
+            history.pushState(null, null, 'home.html');
         })
         .catch(error => {
             console.error('Erro: ', error)
