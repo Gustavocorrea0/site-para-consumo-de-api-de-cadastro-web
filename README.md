@@ -1,4 +1,4 @@
-<h1> Site que consome API web de Cadastro </h1><br>
+<h1> Site que consome API web de Cadastro </h1>
 
 ## 💻 Tecnologias
 <a>1 - HTML<a><br><br>
@@ -9,4 +9,4 @@
 IDEA: [Visual Studio Code](https://code.visualstudio.com/) &nbsp;&middot;&nbsp; <br>
 
 ## 📷 Tela de Inicio
-<img width="700px" src="./imgTelas/telaInicial.gif"><br><br>
+<img width="720px" src="./imgTelas/telaInicial.gif"><br><br>
