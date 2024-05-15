@@ -1,4 +1,4 @@
-<h1> Site que consome API web de Cadastro </h1><br><br>
+<h1> Site que consome API web de Cadastro </h1><br>
 
 ## 💻 Tecnologias
 <a>1 - HTML<a><br><br>
