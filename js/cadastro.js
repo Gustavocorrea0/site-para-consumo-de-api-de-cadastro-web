@@ -1,4 +1,4 @@
-const urlApi = "https://api-umfg-programacao-iv-2024-291d5e9a4ec4.herokuapp.com/";
+const urlApi = "https://api-umfg-programacao-iv-2024-291d5e9a4ec4.herokuapp.com/v1/signup";
 
 async function cadastrarUsuario(event) {
   event.preventDefault();
@@ -8,17 +8,17 @@ async function cadastrarUsuario(event) {
   const senhaUsuario = document.getElementById('senha').value;
   const confirmarSenha = document.getElementById('confirmarSenha').value;
 
-  if (emailUsuario.trim() === ""){
+  if (emailUsuario === "") {
     alert("O campo email está vazio");
     return;
   }
 
-  if (senhaUsuario.trim() === ""){
+  if (senhaUsuario === "") {
     alert("O campo senha está vazio");
     return;
   }
 
-  if (confirmarSenha.trim() === ""){
+  if (confirmarSenha === "") {
     alert("O campo confirmar senha está vazio");
     return;
   }
@@ -34,8 +34,10 @@ async function cadastrarUsuario(event) {
     confirmedPassword: confirmarSenha
   };
 
+  console.log('Dados do usuário:', JSON.stringify(usuario));
+
   try {
-    const response = await fetch(urlApi + 'v1/signup', {
+    const response = await fetch(urlApi, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -44,17 +46,27 @@ async function cadastrarUsuario(event) {
     });
 
     if (!response.ok) {
-      throw new Error('Erro ao cadastrar usuário');
+      let errorMessage = 'Erro ao cadastrar usuário';
+      try {
+        const errorData = await response.json();
+        console.log('Resposta do servidor:', errorData);
+        errorMessage = errorData.message || errorMessage;
+      } catch (jsonError) {
+        const errorText = await response.json();
+        console.log('Erro ao parsear JSON:', errorText);
+        errorMessage = errorText || errorMessage;
+      }
+      throw new Error(errorMessage);
     }
 
     const data = await response.json();
     console.log('Usuário cadastrado:', data);
     history.pushState(null, null, 'home.html');
+    window.location.href = 'home.html'; // DIRECIONA PARA TELA DE INICIO
   } catch (error) {
-    console.error(error)
+    console.error('Erro:', error);
+    alert('Erro ao cadastrar usuário: ' + error.message);
   }
-
-  window.location.href = 'home.html'; //DIRECIONA PARA TELA DE INICIO
 }
 
 document.addEventListener('DOMContentLoaded', () => {
