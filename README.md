@@ -9,4 +9,4 @@
 IDEA: [Visual Studio Code](https://code.visualstudio.com/) &nbsp;&middot;&nbsp; <br>
 
 ## 📷 Tela de Inicio
-<img width="720px" src="./imgTelas/telaInicial.gif"><br><br>
+<img width="800px" src="./imgTelas/telaInicial.gif"><br><br>
