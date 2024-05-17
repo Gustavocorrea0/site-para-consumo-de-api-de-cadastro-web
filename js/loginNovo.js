@@ -1,4 +1,4 @@
-const urlApi = 'https://api-umfg-programacao-iv-2024-291d5e9a4ec4.herokuapp.com/';
+    const urlApi = 'https://api-umfg-programacao-iv-2024-291d5e9a4ec4.herokuapp.com/';
 
 const loginUsuario = async (email, password) => {
     try {
