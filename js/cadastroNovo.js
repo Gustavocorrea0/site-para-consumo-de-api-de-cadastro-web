@@ -1,10 +1,10 @@
-const urlApi = "https://api-umfg-programacao-iv-2024-291d5e9a4ec4.herokuapp.com/";
+const urlApi = "https://api-umfg-programacao-iv-2024-291d5e9a4ec4.herokuapp.com";
 
 const cadastrarUsuario = async (email, password, confirmedPassword) => {
     alert('ok')
     
     try {
-        const response = await fetch(urlApi + "v1/signup", {
+        const response = await fetch(urlApi + "/v1/signup", {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -30,7 +30,7 @@ const cadastrarUsuario = async (email, password, confirmedPassword) => {
 };
 
 const formularioCadastrarUsuario = async () => {
-    /*
+    
     const emailUsuario = document.getElementById('email').value.trim();
     const senhaUsuario = document.getElementById('senha').value;
     const confirmarSenha = document.getElementById('confirmarSenha').value;
@@ -50,11 +50,11 @@ const formularioCadastrarUsuario = async () => {
         alert("As senhas devem ser iguais");
         return;
     }
-*/
+
     try {
-        await cadastrarUsuario("gustavoss477@gmail.com", "Teste@1234", "Teste@1234");
+        await cadastrarUsuario(emailUsuario, senhaUsuario, confirmarSenha);
     } catch (error) {
-        alert("Erro ao cadastrar usuário. Verifique os dados e tente novamente.");
+        alert(error);
         console.log(error);
     }
 };
